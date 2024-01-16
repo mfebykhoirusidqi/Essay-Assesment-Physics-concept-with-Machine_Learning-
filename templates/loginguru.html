@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+        <link rel="stylesheet" type="text/css" href="/static/css/loginguru.css">
+    
+        <link rel="icon" type="image/jpg" sizes="16x16" href="img/unja.jpg">
+        <title>Login Guru</title>
+    </head>
+</head>
+<body>
+        <div class="container">
+        <center><img class="mb-4" src="/static/img/unja.jpg" alt="" width="72" height="72"></center>
+            <form action="" method="POST" class="login-email">
+                <p class="login-text" style="font-size: 2rem; font-weight: 800;">Login Guru</p>
+                <div class="input-group">
+                    <input type="username" placeholder="Username" name="userguru" required="">
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Password" name="password" required="">
+                </div>
+                <div class="input-group">
+                    <button name="submit" class="btn">Login</button>
+                </div>
+                <p class="login-register-text">Kembali ke halaman home? <a href="{{url_for('index')}}">Home</a>.</p>
+                <p class="login-register-text">Belum punya akun? silahkan daftar akun <a href="{{url_for('register')}}">Register.</a></p>
+            </form>
+        </div>
+    
+    
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="{{ url_for('static', filename='css/exam5.css') }}" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Simulate a smartphone / tablet -->
+<div class="mobile-container">
+
+<!-- Top Navigation Menu -->
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <a margin-left="60px"><img src="{{ url_for('static', filename='img/unja-removebg-preview.png') }}" height="120px" width="120px" ></a>
+    <a href="{{url_for('ujianmahasiswa')}}" class="fa fa-arrow-left">Kembali Ke Ujian</a>
+    
+</div>
+
+<div id="main">
+    <button class="openbtn" onclick="openNav()">☰ Listrik Arus Searah</button>  
+   
+</div>
+</div>
+
+
+<!-- soal soal -->
+<div class="card-body">
+<div class="bd_soal"><center><br><strong>MULAI UJIAN</center></strong>
+    <center>silahkan kerjakan dan submit!
+    </center>
+
+    <br>
+    <div class="soal" align-item="center"><br>
+        <p1> 1.Citra seorang mahasiswa pendidikan fisika Universitas Jambi diberi tugas oleh dosennya untuk menghitung besarnya arus yang mengalir dalam suatu rangkaian yang terdiri dari dua buah bola lampu yang dirangkai paralel dengan sebuah baterai seperti gambar di bawah ini. Jika kedua bola lampu yang digunakan dalam rangkaian tersebut identik, maka urutan besarnya arus pada titik 1, 2, 3, 4, 5 dan 6 dari yang terbesar ke yang terkecil yang seharusnya didapatkan citra adalah</p1><br><br>
+    </div>
+    <div class="soal1">
+        <img src="{{ url_for('static', filename='img/soal6.jpg') }}" position="center" margin-left="50px">
+    </div>
+    <p2></p2>
+    <div class="soal-1-1">
+    <form method="post" action="">
+        <br>
+        <label></label><br>
+        <input type="hidden" name="user" value="{{username}}" required autofocus><br>
+
+        <label>Kode Ujian:</label><br>
+        <input type="text" name="kelas" required autofocus><br>
+
+        <label for="myCheck">Listrik Arus Searah 6:</label> 
+        <input type="checkbox" id="myCheck" name="checkbox" value="Listrik Arus Searah 6" onclick="myFunction()" required autofocus>
+
+        <strong><p3 id="text" style="display:none">Listrik Arus Searah 6 is CHECKED!</p3><br></strong><br>
+
+        <label>Jawab Soal 1 :</label><br>
+        <div>
+
+        <label for="content1"></label>
+    
+        <input type="hidden" name="content1" value="">
+        <div id="editor1" style="min-height: 160px;"></div>
+        </div>
+
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+        <script>
+            var quill1 = new Quill('#editor1', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                            [{ font: [] }],
+                            ["bold", "italic"],
+                            ["link", "blockquote", "code-block"],
+                            [{ list: "ordered" }, { list: "bullet" }],
+                            [{ script: "sub" }, { script: "super" }],
+                            [{ color: [] }, { background: [] }],
+                    ]
+            },
+            });
+            quill1.on('text-change', function(delta, oldDelta, source) {
+                document.querySelector("input[name='content1']").value = quill1.root.innerHTML;
+            });
+        </script>
+        
+        <br>
+
+        </script>
+
+
+        <div class="submit-1"><br>
+            <input type="submit" value="Submit" onclick="return confirm('Apakah anda yakin dengan jawaban anda');">
+        </div>
+        
+    </form>
+
+</div>
+</div>
+<footer class="py-4 bg-light mt-auto">
+    <div class="container-fluid px-4">
+        <div class="d-flex align-items-center justify-content-between small">
+            <div class="text-muted">Copyright &copy; Pendidikan Fisika @NLP Team</div>
+            <div>
+
+            </div>
+        </div>
+    </div>
+</footer>
+<script>
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+      document.getElementById("main").style.marginLeft= "0";
+    }
+</script>
+
+<script>
+    function myFunction() {
+      var checkBox = document.getElementById("myCheck");
+      var text = document.getElementById("text");
+      if (checkBox.checked == true){
+        text.style.display = "block";
+      } else {
+         text.style.display = "none";
+      }
+    }
+</script>
+
+</body>
+</html>
+

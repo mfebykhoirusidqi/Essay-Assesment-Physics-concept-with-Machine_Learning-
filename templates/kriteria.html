@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tabel Kriteria</title>
+    <style>
+        ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        }
+
+        li {
+        float: left;
+        }
+
+        li a {
+        display: block;
+        padding: 8px;
+        background-color: #dddddd;
+        }
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+        
+        table {
+            
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 900px;
+            margin: 100px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ce5656;
+        }
+        
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #7a56ce;
+        }
+        
+        th {
+            background-color: #4a4a4a;
+            color: #fff;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #72dee6;
+        }
+        
+        tr:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="{{url_for('datadosen')}}">Kembali ke Data Siswa</a></li>
+        
+      </ul>
+    <table>
+        {{username}}
+       <strong><tr>
+            <th>Skor</th>
+            <th>80 - 100</th>
+            <th>50 - 79</th>
+            <th>30 - 49</th>
+            <th>1 - 29</th>
+            <th>0</th>
+        </tr></strong>
+        <tr>
+            <td>Indikator</td>
+            <td>Pemahaman yang baik</td>
+            <td>Pemahaman Sebagian</td>
+            <td>Miskonsepsi Spesifik</td>
+            <td>Tidak Memahami</td>
+            <td>Tidak ada jawaban</td>
+        </tr>
+        <tr>
+            <td>Kriteria</td>
+            <td>Jawaban mencakup semua komponen atau sebagian besar dari
+                Jawaban dapat diterima secara ilmiah</td>
+            <td>Jawaban mencakup setidaknya sebagian besar dari
+                ide-ide yang dapat diterima dan menunjukkan pemahaman konsep, akan tetapi juga mengandung beberapa kesalahpahaman.</td>
+            <td>Respons sebagian besar mencakup informasi deskriptif, tidak benar, atau tidak logis.</td>
+            <td>Mengulangi sebagian dari, atau seluruh pertanyaan atau tanggapan yang tidak relevan</td>
+            <td>Tidak Menjawab</td>
+                
+        </tr>
+        <tr>
+            
+    </table>
+
+    <table>
+        <td>Tanahoung, C., Chitaree, R., & Soankwan, C. 2010. Probing Thai 
+            frehmen science students conceptions o heat and temperature using 
+            open-ended questions: a case study. Eurasian Journal of Physics and 
+            Chemistery Education, 2(2): 82-94.
+        </td>
+    </tr>
+    </table>
+
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="{{ url_for('static', filename='css/exam1.css') }}" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+<script src="https://cdn.jsdelivr.net/npm/tinymce@5.10.0/tinymce.min.js"></script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+
+<!-- Simulate a smartphone / tablet -->
+<div class="mobile-container">
+
+<!-- Top Navigation Menu -->
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <a margin-left="60px"><img src="{{ url_for('static', filename='img/unja-removebg-preview.png') }}" height="120px" width="120px" ></a>
+    <a href="{{url_for('ujianmahasiswa')}}" class="fa fa-arrow-left">Kembali Ke Ujian</a>
+    
+</div>
+
+<div id="main">
+    <button class="openbtn" onclick="openNav()">☰ Hukum Newton 1</button>  
+   
+</div>
+</div>
+
+
+<!-- soal soal -->
+<div class="card-body">
+<div class="bd_soal"><center><br><strong>MULAI UJIAN</center></strong>
+    <center>silahkan kerjakan dan submit!
+    </center>
+
+    <br>
+    <div class="soal" align-item="center"><br>
+        <p1> 1.   Seseorang menimbang ikan bermassa  dengan timbangan yang 
+            digantungkan pada atap lift, seperti terlihat pada Gambar dibawah 
+            ini. Saat lift diam, skala pada timbangan menunjukkan angka 5 N.  </p1><br><br>
+    </div>
+    <div class="soal1">
+        <img src="{{ url_for('static', filename='img/soalnew1.jpg') }}" position="center" margin-left="50px">
+    </div>
+    <p2>
+        Jika lift dipercepat ke atas, penunjukkan skala pada timbangan adalah . . .....</p2>
+    <div class="soal-1-1">
+    <form method="post" action="">
+        <br>
+        <label></label><br>
+        <input type="hidden" name="user" value="{{username}}"  required autofocus><br>
+
+        <label>Kode Ujian:</label><br>
+        <input type="text" name="kelas" required autofocus><br>
+
+        <label for="myCheck">Newton 1:</label> 
+        <input type="checkbox" id="myCheck" name="checkbox" value="Newton 1" onclick="myFunction()" required autofocus>
+
+        <strong><p3 id="text" style="display:none">Newton 1 is CHECKED!</p3><br></strong><br>
+
+        <label>Jawab Soal 1 :</label><br>
+        <div>
+
+        <textarea name="content1" id="editor1" style="height: 100px; width: 100%;"></textarea><br>
+        </div>
+        <script>
+    
+            var useDarkMode = window.matchMedia('(prefers-color-scheme: light)').matches;
+            
+            tinymce.init({
+              selector: 'textarea#editor1',
+              plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+              menubar: 'file editinsert format',
+              toolbar: 'undo redo | bold italic underline strikethrough superscript subscript charmap | fontsizeselect| alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | charmap | fullscreen  preview print',
+              toolbar_sticky: true,
+              autosave_ask_before_unload: true,
+              autosave_interval: '30s',
+              autosave_prefix: '{path}{query}-{id}-',
+              autosave_restore_when_empty: false,
+              autosave_retention: '2m',
+              image_advtab: true,
+              importcss_append: true,
+              file_picker_callback: function (callback, value, meta) {
+                /* Provide file and text for the link dialog */
+                if (meta.filetype === 'file') {
+                  callback('https://www.google.com/logos/google.jpg', { text: 'My text' });
+                }
+            
+                /* Provide image and alt text for the image dialog */
+                if (meta.filetype === 'image') {
+                  callback('https://www.google.com/logos/google.jpg', { alt: 'My alt text' });
+                }
+            
+                /* Provide alternative source and posted for the media dialog */
+                if (meta.filetype === 'media') {
+                  callback('movie.mp4', { source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg' });
+                }
+              },
+              templates: [
+                    {description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
+                { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
+                { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+              ],
+              template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+              template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+              height: 400,
+              image_caption: true,
+              quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+              noneditable_noneditable_class: 'mceNonEditable',
+              toolbar_mode: 'sliding',
+              skin: useDarkMode ? 'oxide-dark' : 'oxide',
+              content_css: useDarkMode ? 'dark' : 'default',
+              content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+             });
+            
+            
+          </script>
+        
+        <br>
+        <div class="submit-1"><br>
+            <input type="submit" value="Submit" onclick="return confirm('Apakah anda yakin dengan jawaban anda');">
+        </div>
+    </form>
+    </div>
+</div>
+
+<footer class="py-4 bg-light mt-auto">
+    <div class="container-fluid px-4">
+        <div class="d-flex align-items-center justify-content-between small">
+            <div class="text-muted">Copyright &copy; Pendidikan Fisika @NLP Team</div>
+            <div>
+
+            </div>
+        </div>
+    </div>
+</footer>
+<script>
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+      document.getElementById("main").style.marginLeft= "0";
+    }
+</script>
+
+<script>
+    function myFunction() {
+      var checkBox = document.getElementById("myCheck");
+      var text = document.getElementById("text");
+      if (checkBox.checked == true){
+        text.style.display = "block";
+      } else {
+         text.style.display = "none";
+      }
+    }
+</script>
+
+</body>
+</html>
+

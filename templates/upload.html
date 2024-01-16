@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload dan Tampilkan Gambar</title>
+</head>
+<body>
+    <h1>Upload dan Tampilkan Gambar</h1>
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*">
+        <input type="submit" value="Unggah Gambar">
+    </form>
+
+    <h2>Daftar Gambar yang Telah Diunggah:</h2>
+    <ul>
+        {% for image in images %}
+            <li>
+                <img src="{{ url_for('display', filename=image[1]) }}" alt="{{ image[1] }}" width="200">
+                {{ image[1] }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

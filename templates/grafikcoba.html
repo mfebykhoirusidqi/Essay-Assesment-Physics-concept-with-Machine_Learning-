@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grafik Persentase Siswa</title>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Grafik Persentase Siswa Mengerjakan Ujian</h1>
+    <div style="width: 50%;">
+        <canvas id="donutChart"></canvas>
+    </div>
+    <script>
+        var ctx = document.getElementById('donutChart').getContext('2d');
+        var data = {
+            labels: [
+                'Pertemuan 1',
+                'Pertemuan 2',
+                'Pertemuan 3',
+                'Pertemuan 4',
+                'Pertemuan 5'
+            ],
+            datasets: [{
+                data: {{ data | tojson }},
+                backgroundColor: [
+                    'red',
+                    'blue',
+                    'green',
+                    'yellow',
+                    'orange'
+                ]
+            }]
+        };
+        var myDonutChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: data
+        });
+    </script>
+</body>
+</html>

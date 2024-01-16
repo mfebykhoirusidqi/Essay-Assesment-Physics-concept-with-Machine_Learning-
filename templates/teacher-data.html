@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Grade AI System</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/teacher.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway"}
+
+</style>
+</head>
+<body class="w3-light-grey w3-content" style="max-width:1600px">
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-animate-left" style="z-index:3;width:250px; background-color: #ffffff;" id="mySidebar"><br>
+  <div class="w3-container">
+    <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
+      <i class="fa fa-remove"></i>
+    </a>
+    <center><h4><b>GAIS GURU</b></h4></center>
+    <center><img src="{{ url_for('static', filename='img/unja-removebg-preview.png') }}" style="width:60%;" class="w3-round"><br><br></center>
+    <center><p1 class="w3-text" style="font-size: 16px; font-weight: 600; color: rgb(23, 58, 139);">{{username}}</p1></center>
+    <center><p class="w3-text-grey">Interface Page</p></center>
+  </div>
+  <div class="w3-bar-block">
+    <a href="{{url_for('dashboardosen')}}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding " style="width: 80%; margin-left: 20px; border-radius: 5px;"><i class="fa fa-th-large fa-fw w3-margin-right"></i>DASHBOARD</a> 
+    <a href="{{url_for('profildosen')}}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding" style="width: 80%; margin-left: 20px; border-radius: 5px; margin-top: 10px;"><i class="fa fa-user fa-fw w3-margin-right"></i>PROFIL</a> 
+    <a href="{{url_for('kodedosen')}}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding" style="width: 80%; margin-left: 20px; border-radius: 5px; margin-top: 10px;"><i class="fa fa-code-fork fa-fw w3-margin-right"></i>KODE</a>
+    <a href="{{url_for('datadosen')}}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-indigo" style="width: 80%; margin-left: 20px; border-radius: 5px; margin-top: 10px;"><i class="fa fa-database fa-fw w3-margin-right"></i>DATA SISWA</a>
+    <a href="{{url_for('soal')}}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding" style="width: 80%; margin-left: 20px; border-radius: 5px; margin-top: 10px;"><i class="fa fa-folder-open fa-fw w3-margin-right"></i>DATA SOAL</a>
+  </div>
+  <footer>
+    <div class="w3-panel w3-large w3-display-bottomleft" style="width: 80%; margin-left: 20px; border-radius: 5px; background-color: rgb(150, 130, 235);; height: 40px; color: #030303;">
+      <a onclick="return confirm('Apakah yakin ingin keluar dari system?'); " href="{{url_for('logout')}}"><i class="fa fa-sign-out"></i>Log out</a>
+    </div>
+  </footer>
+</nav>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:250px;">
+
+  <!-- Header -->
+  <header id="portfolio" style="background-color: darkblue;">
+   
+    <span class="w3-button w3-hide-large w3-xxlarge " onclick="w3_open()"><i class="fa fa-bars"></i></span>
+    <div class="w3-container">
+      <h1><b style="color: rgb(255, 255, 255);">Grade AI System</b></h1>
+    </div>
+  </header>
+   <!-- konten pertama-->
+    <div class="search-container">
+    <form action="#" method="post">
+        <input type="text" placeholder="Cari..." name="search" required>
+        <button type="submit" class="fa fa-search"></button>
+    </form>
+    <center><h1><a href="{{url_for('unduh')}}">Unduh Hasil Siswa Di sini</a></h1></center>
+    </div>
+    
+
+    <center><span style="font-size: 20px; font-weight: 600; color: rgb(58, 96, 97);">Tabel Hasil Pemahaman Konsep Siswa</span></center>
+    <div style="overflow-x:auto;">
+        <table class="hasil-inkuiri">
+          <tr>
+            <th>Nama</th>
+            <th>Kode Ujian</th>
+            <th>Soal</th>
+            <th>Jawaban Siswa</th>
+            <th>Kunci Jawaban</th>
+            <th>Nilai Pemahaman Konsep</th>
+            <th>Keterangan</th>
+            <th>Waktu & tanggal</th>
+            
+          </tr>
+          <tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td class="align-middle">{{result[1]}}</td>
+                <td class="align-middle">{{result[3]}}</td>
+                <td class="align-middle">{{result[4]}}</td>
+                <td class="align-middle">{{result[5]}}</td>
+                <td class="align-middle">{{result[6]}}</td>
+                <td class="align-middle">{{result[8]}}</td>
+                <td class="align-middle">{{result[9]}}</td>
+                <td class="align-middle">{{result[12]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+    
+
+  
+
+
+
+
+
+
+
+    <div class="footer">
+    <a>Copyright @ Pendidikan Fisika</a>
+  </div>
+</div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+</script>
+
+</body>
+</html>

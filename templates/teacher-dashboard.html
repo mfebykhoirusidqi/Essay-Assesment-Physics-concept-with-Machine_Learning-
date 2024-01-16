@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Grade AI System</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/teacher.css') }}">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="{{ url_for('static', filename='js/kalender.js') }}"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+.grafik23 {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+  }
+  .grafik21 {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+  }
+
+  @media screen and (max-width: 768px){
+    .grafik21{
+      margin-top: 40px;
+    }
+}
+</style>
+</head>
+<body class="w3-light-grey w3-content" style="max-width:1600px">
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-animate-left" style="z-index:3;width:250px; background-color: #ffffff;" id="mySidebar"><br>
+  <div class="w3-container">
+    <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
+      <i class="fa fa-remove"></i>
+    </a>
+    <center><h4><b>GAIS GURU</b></h4></center>
+    <center><img src="{{ url_for('static', filename='img/unja-removebg-preview.png') }}" style="width:60%;" class="w3-round"><br><br></center>
+    <center><p1 class="w3-text" style="font-size: 16px; font-weight: 600; color: rgb(23, 58, 139);">{{username}}</p1></center>
+    <center><p class="w3-text-grey">Interface Page</p></center>
+  </div>
+  <div class="w3-bar-block">
+    <a href="{{url_for('dashboardosen')}}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-indigo" style="width: 80%; margin-left: 20px; border-radius: 5px;"><i class="fa fa-th-large fa-fw w3-margin-right"></i>DASHBOARD</a> 
+    <a href="{{url_for('profildosen')}}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding" style="width: 80%; margin-left: 20px; border-radius: 5px; margin-top: 10px;"><i class="fa fa-user fa-fw w3-margin-right"></i>PROFIL</a> 
+    <a href="{{url_for('kodedosen')}}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding" style="width: 80%; margin-left: 20px; border-radius: 5px; margin-top: 10px;"><i class="fa fa-code-fork fa-fw w3-margin-right"></i>KODE</a>
+    <a href="{{url_for('datadosen')}}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding" style="width: 80%; margin-left: 20px; border-radius: 5px; margin-top: 10px;"><i class="fa fa-database fa-fw w3-margin-right"></i>DATA SISWA</a>
+    <a href="{{url_for('soal')}}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding" style="width: 80%; margin-left: 20px; border-radius: 5px; margin-top: 10px;"><i class="fa fa-folder-open fa-fw w3-margin-right"></i>DATA SOAL</a>
+  </div>
+  <footer>
+    <div class="w3-panel w3-large w3-display-bottomleft" style="width: 80%; margin-left: 20px; border-radius: 5px; background-color: rgb(150, 130, 235);; height: 40px; color: #030303;">
+      <a onclick="return confirm('Apakah yakin ingin keluar dari system?'); " href="{{url_for('logout')}}"><i class="fa fa-sign-out"></i>Log out</a>
+    </div>
+  </footer>
+</nav>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:250px">
+
+  <!-- Header -->
+  <header id="portfolio" style="background-color: darkblue;">
+   
+    <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
+    <div class="w3-container">
+    <h1><b style="color: rgb(240, 246, 250);">Grade AI System</b></h1>
+    </div>
+  </header>
+  <center><h2>Selamat datang, Bapak/Ibu Guru!</h2></center>
+   <!-- konten pertama-->
+   <div class="row">
+    <div class="coloum time-1">
+      <h1>Waktu & Kalender</h1>
+      <div id="tanggal-waktu"></div>
+      <div id="kalender"></div>
+    </div>
+    <div class="coloum std-1">
+      <center><h2 style=" font-weight: 600;">Kode Ujian</h2></center>
+      <center>
+      <table class="w3-table " style="font-size: 15px;">
+          <tr>
+              <th>Kelas</th>
+              <th>Kode</th>
+              <th>Tanggal-Waktu</th>
+          </tr>
+          {% for ujian in riwayat_ujian %}
+          <tr>
+              <td aria-placeholder="belum ada lkpd yang selesai">{{ ujian[0] }}</td>
+              <td>{{ ujian[1] }}</td>
+              <td>{{ ujian[2] }}</td>
+          </tr>
+          {% endfor %}
+      </table>
+      </center>
+  
+    </div>
+  </div>
+  <br>
+  <div class="grid grafik21">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Siswa Hukum Newton 1</h1>
+    <canvas id="myChart" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(69, 173, 199);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Tidak Paham Hukum Newton 1</h1>
+    <canvas id="myChart6" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Miskonsepsi Spesifik Hukum Newton 1</h1>
+    <canvas id="myChart7" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Pemahaman Sebagian Hukum Newton 1</h1>
+    <canvas id="myChart8" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Pemahaman keseluruhan Hukum Newton 1</h1>
+    <canvas id="myChart9" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Siswa Hukum Newton 2</h1>
+    <canvas id="myChart2" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Tidak Paham Hukum Newton 2</h1>
+    <canvas id="myChart10" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Miskonsepsi Spesifik Hukum Newton 2</h1>
+    <canvas id="myChart11" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Pemahaman Sebagian Hukum Newton 2</h1>
+    <canvas id="myChart12" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Pemahaman keseluruhan Hukum Newton 2</h1>
+    <canvas id="myChart13" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Siswa Hukum Newton 3</h1>
+    <canvas id="myChart3" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Tidak Paham Hukum Newton 3</h1>
+    <canvas id="myChart14" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Miskonsepsi Spesifik Hukum Newton 3</h1>
+    <canvas id="myChart15" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Pemahaman Sebagian Hukum Newton 3</h1>
+    <canvas id="myChart16" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Pemahaman keseluruhan Hukum Newton 3</h1>
+    <canvas id="myChart17" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Siswa Hukum Newton 4</h1>
+    <canvas id="myChart4" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Tidak Paham Hukum Newton 4</h1>
+    <canvas id="myChart18" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Miskonsepsi Spesifik Hukum Newton 4</h1>
+    <canvas id="myChart19" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Pemahaman Sebagian Hukum Newton 4</h1>
+    <canvas id="myChart20" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Pemahaman keseluruhan Hukum Newton 4</h1>
+    <canvas id="myChart21" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Siswa Hukum Newton 5</h1>
+    <canvas id="myChart5" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Tidak Paham Hukum Newton 5</h1>
+    <canvas id="myChart22" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Miskonsepsi Spesifik Hukum Newton 5</h1>
+    <canvas id="myChart23" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Pemahaman Sebagian Hukum Newton 5</h1>
+    <canvas id="myChart24" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <div class="grid grafik23">
+    <h1 style="font-size: 20px; margin-left: 20px; font-weight: 600;">Grafik Hasil Pemahaman keseluruhan Hukum Newton 5</h1>
+    <canvas id="myChart25" width="600" height="200" style="margin-left: 20px; border: 1px solid rgb(199, 106, 69);"></canvas>
+  </div>
+  <br>
+  <br>
+  <br>
+ 
+  <div class="footer">
+    <a>Copyright @Pendidikan Fisika @NLP-team @UNJA</a>
+  </div>
+</div>
+<script>
+  var labels = {{ labels | tojson }};
+  var data = {{ data | tojson }};
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Hasil Pemahaman Konsep',
+              data: data,
+              backgroundColor: 'rgb(51, 153, 255)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+
+<script>
+  var labels = {{ labels2 | tojson }};
+  var data = {{ data2 | tojson }};
+
+  var ctx = document.getElementById('myChart2').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Hasil Pemahaman Konsep',
+              data: data,
+              backgroundColor: 'rgb(255, 255, 153)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels3 | tojson }};
+  var data = {{ data3 | tojson }};
+
+  var ctx = document.getElementById('myChart3').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Hasil Pemahaman Konsep',
+              data: data,
+              backgroundColor: 'rgb(51, 204, 51)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels4 | tojson }};
+  var data = {{ data4 | tojson }};
+
+  var ctx = document.getElementById('myChart4').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Hasil Pemahaman Konsep',
+              data: data,
+              backgroundColor: 'rgb(255, 204, 0)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels5 | tojson }};
+  var data = {{ data5 | tojson }};
+
+  var ctx = document.getElementById('myChart5').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Hasil Pemahaman Konsep',
+              data: data,
+              backgroundColor: 'rgb(255, 204, 204)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels6 | tojson }};
+  var data = {{ data6 | tojson }};
+
+  var ctx = document.getElementById('myChart6').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Pemahaman Konsep Tidak Paham',
+              data: data,
+              backgroundColor: 'rgb(51, 153, 255)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+
+<script>
+  var labels = {{ labels7 | tojson }};
+  var data = {{ data7 | tojson }};
+
+  var ctx = document.getElementById('myChart7').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Hasil Pemahaman Konsep',
+              data: data,
+              backgroundColor: 'rgb(51, 153, 255)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels8 | tojson }};
+  var data = {{ data8 | tojson }};
+
+  var ctx = document.getElementById('myChart8').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Hasil Pemahaman Konsep',
+              data: data,
+              backgroundColor: 'rgb(51, 153, 255)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels9 | tojson }};
+  var data = {{ data9 | tojson }};
+
+  var ctx = document.getElementById('myChart9').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Hasil Pemahaman Konsep',
+              data: data,
+              backgroundColor: 'rgb(51, 153, 255)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels10 | tojson }};
+  var data = {{ data10 | tojson }};
+
+  var ctx = document.getElementById('myChart10').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Hasil Pemahaman Konsep',
+              data: data,
+              backgroundColor: 'rgb(255, 255, 153)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels11 | tojson }};
+  var data = {{ data11 | tojson }};
+
+  var ctx = document.getElementById('myChart11').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Pemahaman Konsep ',
+              data: data,
+              backgroundColor: 'rgb(255, 255, 153)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels12 | tojson }};
+  var data = {{ data12 | tojson }};
+
+  var ctx = document.getElementById('myChart12').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Hasil Pemahaman Konsep',
+              data: data,
+              backgroundColor: 'rgb(255, 255, 153)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels13 | tojson }};
+  var data = {{ data13 | tojson }};
+
+  var ctx = document.getElementById('myChart13').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Pemahaman Konsep ',
+              data: data,
+              backgroundColor: 'rgb(255, 255, 153)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels14 | tojson }};
+  var data = {{ data14 | tojson }};
+
+  var ctx = document.getElementById('myChart14').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Hasil Pemahaman Konsep',
+              data: data,
+              backgroundColor: 'rgb(51, 204, 51)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels15 | tojson }};
+  var data = {{ data15 | tojson }};
+
+  var ctx = document.getElementById('myChart15').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Pemahaman Konsep ',
+              data: data,
+              backgroundColor: 'rgb(51, 204, 51)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels16 | tojson }};
+  var data = {{ data16 | tojson }};
+
+  var ctx = document.getElementById('myChart16').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Hasil Pemahaman Konsep',
+              data: data,
+              backgroundColor: 'rgb(51, 204, 51)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels17 | tojson }};
+  var data = {{ data17 | tojson }};
+
+  var ctx = document.getElementById('myChart17').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Pemahaman Konsep ',
+              data: data,
+              backgroundColor: 'rgb(51, 204, 51)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+
+<script>
+  var labels = {{ labels18 | tojson }};
+  var data = {{ data18 | tojson }};
+
+  var ctx = document.getElementById('myChart18').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Hasil Pemahaman Konsep',
+              data: data,
+              backgroundColor: 'rgb(255, 204, 0)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels19 | tojson }};
+  var data = {{ data19 | tojson }};
+
+  var ctx = document.getElementById('myChart19').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Pemahaman Konsep ',
+              data: data,
+              backgroundColor: 'rgb(255, 204, 0)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels20 | tojson }};
+  var data = {{ data20 | tojson }};
+
+  var ctx = document.getElementById('myChart20').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Hasil Pemahaman Konsep',
+              data: data,
+              backgroundColor: 'rgb(255, 204, 0)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels21 | tojson }};
+  var data = {{ data21 | tojson }};
+
+  var ctx = document.getElementById('myChart21').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Pemahaman Konsep ',
+              data: data,
+              backgroundColor: 'rgb(255, 204, 0)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+
+<script>
+  var labels = {{ labels22 | tojson }};
+  var data = {{ data22 | tojson }};
+
+  var ctx = document.getElementById('myChart22').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Hasil Pemahaman Konsep',
+              data: data,
+              backgroundColor: 'rgb(255, 204, 204)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels23 | tojson }};
+  var data = {{ data23 | tojson }};
+
+  var ctx = document.getElementById('myChart23').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Pemahaman Konsep ',
+              data: data,
+              backgroundColor: 'rgb(255, 204, 204)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels24 | tojson }};
+  var data = {{ data24 | tojson }};
+
+  var ctx = document.getElementById('myChart24').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Hasil Pemahaman Konsep',
+              data: data,
+              backgroundColor: 'rgb(255, 204, 204)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+<script>
+  var labels = {{ labels25 | tojson }};
+  var data = {{ data25 | tojson }};
+
+  var ctx = document.getElementById('myChart25').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Pemahaman Konsep ',
+              data: data,
+              backgroundColor: 'rgb(255, 204, 204)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1, // Set stepSize to 1 to display only integer level values
+                ticks: {
+                    callback: function(value, index, values) {
+                      if (value % 1 == 0) {
+                        if (value == 1) {
+                            return "Tidak paham";
+                        } else if (value == 2) {
+                            return "Miskonsepsi spesifik";
+                        } else if (value == 3) {
+                            return "Pemahaman sebagian";
+                        } else if (value == 4) {
+                            return "Pemahaman keseluruhan";
+                        } else {
+                            return "";
+                        }
+                      } else {
+                            return null;
+                      }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+</script>
+
+</body>
+</html>
