@@ -1,0 +1,450 @@
+.std-1{
+    margin-left: 20px;
+    width: 600px;
+    height: 400px;
+    background-color: rgb(83, 215, 219);
+    border-radius: 10px;
+    
+}
+h2{
+  font-size: 20px;
+  color: #14313a;
+  font-weight: 600;
+
+}
+.std-1 .container {
+  max-width: 400px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.std-1.donut-chart-container {
+  margin-top: 20px;
+}
+
+.row {
+  display: flex;
+  height: 60vh;
+  width: 900px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.column {
+  flex: 1;
+  text-align: center;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+}
+
+.time-1 {
+  max-width: 400px;
+  height: 400px;
+  background-color: #7db8e0;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.time-1 h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 20px;
+}
+
+#tanggal-waktu {
+  text-align: center;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+#kalender {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* Mengubah jumlah kolom menjadi 5 */
+  grid-template-rows: repeat(7, 1fr); /* Menambahkan jumlah baris menjadi 7 */
+  text-align: center;
+}
+
+#kalender div {
+  padding: 10px;
+  border: 1px solid #252424;
+  border-bottom: none;
+  flex: 1 0 14.28%; /* 100% / 7 hari */
+}
+
+#kalender div:last-child {
+  border-bottom: 1px solid #be7272;
+}
+
+.today {
+  background-color: #92d2eb;
+}
+
+.grafik {
+  margin-bottom: 100px;
+}
+
+
+
+
+/*halaman profil siswa */
+.profil {
+    margin-top: 40px;
+    margin-left: 20px;
+    width: 800px;
+    height: 500px;
+    background-color: rgb(203, 208, 209);
+    border-radius: 10px;
+}
+
+.profil span{
+    color: #1e2f5e;
+    font-weight: 600;
+    font-size: 30px;
+    
+}
+
+.profil h2 {
+  color: black;
+  font-size: 20px;
+}
+
+.profil-2 {
+  margin-left: 30px;
+  background-color: #beb7b7;
+  border-radius: 10px;
+  width: 700px;
+}
+
+.profil-2 h2{
+  margin-left: 5px;
+}
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #154a99;
+  color: rgb(12, 12, 12);
+  padding: 14px 20px;
+  margin: 50px 250px;
+  border: none;
+  cursor: pointer;
+  width: 300px;
+  border-radius: 10px;
+}
+button:hover{
+  background-color: #1a929b;
+}
+
+/* Styling modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+input[type="submit"] {
+  background-color: #44a047;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+
+
+
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background-color: #acd8e6;
+    color: #333;
+ }
+
+
+
+  /* style pada halama lkpd fluida mahasiswa*/
+
+.ujian {
+    margin-left: 20px;
+    width: 90%;
+    height: 100%;
+    background-color: rgb(199, 211, 209);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.ujian-2 {
+    color: rgb(29, 70, 131);
+}
+.ujian-2 span {
+    font-size: 25px;
+    font-weight: 600;
+}
+.ujian-3 {
+    height: 100px;
+    width: 95%;
+    background-color: #6bd8cf;
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-top: 30px;
+    border: 2px solid rgb(0, 68, 255);
+
+}
+.ujian-3 span {
+    font-size: 20px;
+    color: rgb(18, 46, 68);
+    font-weight: 600;
+    font-family: sans-serif;
+}
+.ujian-3 .ujian-4 {
+    margin-left: 65%;
+    margin-top: 30px;
+    background-color: rgb(20, 133, 185);
+    width: 30%;
+    border-radius: 5px;
+}
+.ujian-4 span{
+    color: black;
+}
+
+.ujian-4:hover {
+    background-color: rgb(192, 191, 106);
+}
+
+.ujian-5 {
+    height: 100px;
+    width: 95%;
+    background-color: #6bd8cf;
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-top: 30px;
+    border: 2px solid rgb(46, 97, 240);
+    margin-bottom: 60px;
+
+}
+
+.ujian-5 span {
+    font-size: 20px;
+    color: rgb(18, 46, 68);
+    font-weight: 600;
+    font-family: sans-serif;
+}
+.ujian-5 .ujian-52 {
+    margin-left: 65%;
+    margin-top: 30px;
+    background-color: rgb(20, 133, 185);
+    width: 30%;
+    border-radius: 5px;
+}
+.ujian-52 span{
+    color: black;
+}
+
+.ujian-52:hover {
+    background-color: rgb(192, 191, 106);
+}
+
+
+.py-4{
+  height: 50px;
+  margin-top: 50px;
+  background-color: #85d9f3;
+  text-align: center;
+  padding: 10px;
+}
+
+
+
+ @media (max-width: 768px) {
+    .std-1 {
+        margin-top: 20px;
+        width: 380px;
+        height: 450px;
+        margin-left: 1px;
+        
+    }
+    .std-1 table {
+      width: 320px;
+      font-size: 15px;
+    }
+
+    .profil {
+        width: 370px;
+        height: 450px;
+    }
+ }
+
+
+ @media screen and (max-width: 480px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .coloum {
+    min-width: auto;
+    max-width: 100%;
+  }
+    .grafik {
+      margin-top: 300px;
+      width: 370px;
+      height: 300px;
+      margin-bottom: 20px;
+    }
+
+    .time-1 {
+      width: 370px;
+    }
+    .profil {
+      margin-top: 40px;
+      margin-left: 10px;
+      width: 90%;
+      height: auto;
+      background-color: rgb(203, 208, 209);
+      border-radius: 10px;
+    }
+  
+    .profil span {
+      color: #1e5e31;
+      font-weight: 600;
+      font-size: 24px;
+    }
+  
+    .profil h2 {
+      color: black;
+      font-size: 18px;
+    }
+  
+    .profil-2 {
+      margin-left: 10px;
+      background-color: #b8b1b1;
+      width: 350px;
+    }
+  
+    .profil-2 h2 {
+      margin-left: 5px;
+    }
+  
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+  
+    button {
+      background-color: #209769;
+      color: white;
+      padding: 12px 16px;
+      margin: 50px auto;
+      display: block;
+      border: none;
+      cursor: pointer;
+      width: 70%;
+      border-radius: 10px;
+      
+    }
+  
+    button:hover {
+      background-color: #145c40;
+    }
+  
+    /* Styling modal */
+    .modal-content {
+      margin: 15% auto;
+      padding: 16px;
+      width: 90%;
+      max-width: 400px;
+    }
+
+
+    .ujian-3 {
+        margin-left: 10px;
+    }
+
+    .ujian-3 .ujian-4 {
+        width: 100%;
+        margin-left: 0%;
+        margin-top: 40px;
+        
+    }
+    .ujian-5 {
+        margin-left: 10px;
+
+    }
+    .ujian-5 .ujian-52 {
+        width: 100%;
+        margin-left: 0%;
+        margin-top: 40px;
+    }
+  }
+  
+
+  
+

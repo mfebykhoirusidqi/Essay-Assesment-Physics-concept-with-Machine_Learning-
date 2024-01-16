@@ -1,0 +1,275 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #15b1e0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  
+  .sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #fff8f8;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidebar a:hover {
+    color: #4763be;
+  }
+  
+  .sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+  .openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+  }
+  
+  .openbtn:hover {
+    background-color: #444;
+  }
+  
+  #main {
+    transition: margin-left .5s;
+    padding: 16px;
+  }
+  
+
+/* STYLE PADA SOAL NEWTON*/
+
+.col_newton {
+    width: 800px;
+  
+  }
+
+
+  .card-body {
+    width: 800px;
+    background-color: #f1f6f8;
+    margin-left: 250px;
+    border-radius: 10px;
+    
+    line-height: 1.5;
+    
+      
+
+  }
+  .bd_soal{
+    color: black;
+    width: 700px;
+    margin-left: 35px;
+    border-radius: 5px;
+    margin-top: 10px
+    
+    
+  }
+
+
+
+  .soal1 img{
+    height: 250px;
+    width: 350px;
+    margin-left: 15px;
+  }
+  .soal-1-1  p3{
+    color: green;
+  }
+
+  .soal-1-1 input{
+    height: 20px;
+   
+   
+  }
+  .submit-1 input {
+    background-color: green;
+    color: white;
+    height: 40px;
+    width: 100px;
+    border-radius: 10px;
+  }
+  
+  .submit-1 input:hover{
+    background-color: red;
+  }
+
+
+
+
+.py-4{
+    height: 50px;
+    margin-top: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 480px) {
+    body {
+    font-size: 16px;
+    }
+    
+    .sidebar {
+    width: 200px;
+    padding-top: 30px;
+    }
+    
+    .sidebar a {
+    font-size: 16px;
+    padding: 5px;
+    }
+    
+    .openbtn {
+    font-size: 16px;
+    padding: 8px 12px;
+    }
+    
+    #main {
+    margin-left: 200px;
+    padding: 8px;
+    }
+    
+    .col_newton {
+    width: 100%;
+    
+    }
+    
+    .card-body {
+    width: 100%;
+    margin-left: 0px;
+    border-radius: 0px;
+    }
+    
+    .card-body .bd_soal{
+    width: 100%;
+    margin-left: 0px;
+    margin-top: 10px;
+    }
+    
+    .soal1 img{
+    height: 140px;
+    width: 100%;
+    margin-left: 0px;
+    }
+    
+    .soal-1-1 p3{
+    color: green;
+    }
+    
+    .soal-1-1 input{
+    height: 20px;
+    width: 80%;
+    margin: 5px 0px;
+    
+    }
+    
+    .submit-1 input {
+    height: 30px;
+    width: 80%;
+    margin-bottom: 50px;
+    margin-left: 30px;
+    }
+    }
+
+    
+
+        
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 480px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+  }
+  
+  .mobile-container {
+    max-width: 100%;
+    margin: auto;
+    background-color: #34cfd4;
+    color: white;
+    border-radius: 10px;
+  }
+
+
+
+
+
+
+
+
+
+
+
+  @media screen and (min-width: 490px) and (max-width: 915px) {
+
+    body {
+    font-size: 14px;
+    }
+    
+    .sidebar {
+    width: 200px;
+    padding-top: 30px;
+    }
+    
+    .sidebar a {
+    font-size: 14px;
+    }
+    
+    #main {
+    margin-left: 200px;
+    }
+    
+    .col_newton {
+    width: 600px;
+    }
+    
+    .card-body {
+    width: 600px;
+    margin-left: 150px;
+    }
+    .card-body .bd_soal{
+        width: 500px;
+    }
+    
+    .soal1 img {
+    height: 200px;
+    width: 300px;
+    }
+    
+    .submit-1 input {
+    height: 30px;
+    width: 80px;
+    }
+    
+
+    .py-4 {
+        margin-top: 20px;
+    }
+    }
